@@ -1,3 +1,34 @@
+collect_usage_data: false
+auto_merge: false
 projects:
 - name: gcs
   dir: gcs
+  workspace: default
+  terragrunt: false
+  workflow: gcs
+workflows:
+  gcs:
+    env_vars:
+      state:
+      - name: TF_LOG
+        value: trace
+      commands:
+      - name: TF_LOG
+        value: trace
+    plan:
+      steps:
+      - init:
+        extra_args: ["backend-config=../backend.hcl"]
+      - run: "echo hello world"
+      - plan
+    apply:
+      steps:
+      - run: "echo hello world"
+        shell: zsh
+      - init
+      - apply:
+        extra_args: ["-compact-warnings"]
+    workflow_configuration:
+      on_pull_request_pushed: ["digger plan"]
+      on_pull_request_closed: ["digger unlock"]
+      on_commit_to_default: ["digger apply"]
