@@ -8,26 +8,18 @@ projects:
   workflow: gcs
 workflows:
   gcs:
-    init:
-      steps:
-      - init:
-        extra_args: ["backend-config=../backend.hcl"]
-      - run: "terraform init"
-      - init
     plan:
       steps:
-      - init:
-        extra_args: ["backend-config=../backend.hcl"]
       - run: "echo hello world"
+      - init
       - plan
     apply:
       steps:
-      - run: "echo hello world"
+      - run: "terraform fmt -check -diff -recursive"
         shell: zsh
       - init
-      - apply:
-        extra_args: ["-compact-warnings"]
+      - apply
     workflow_configuration:
       on_pull_request_pushed: ["digger plan"]
       on_pull_request_closed: ["digger unlock"]
-      on_commit_to_default: ["digger apply"]
+      on_commit_to_default: ["digger unlock"]
