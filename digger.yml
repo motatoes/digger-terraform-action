@@ -1,6 +1,6 @@
 projects:
 - name: gcs
-  dir: ./gcs
+  dir: gcs
   workflow: gcs
 workflows:
   gcs:
