@@ -7,7 +7,7 @@ list_of_cloud_buckets = [
     bucket_policy_only = true
     labels = {
       "env" : "uat"
-      "app" : "gcs-insta"
+      "app" : "gcs"
     }
     encryption = {
       "key_name" : "test",

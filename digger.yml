@@ -1,3 +1,25 @@
+collect_usage_data: false
+auto_merge: false
 projects:
 - name: gcs
   dir: gcs
+  workspace: default
+  terragrunt: false
+  workflow: gcs
+workflows:
+  gcs:
+    plan:
+      steps:
+      - run: "echo hello world"
+      - init
+      - plan
+    apply:
+      steps:
+      - run: "terraform fmt -check -diff -recursive"
+        shell: zsh
+      - init
+      - apply
+    workflow_configuration:
+      on_pull_request_pushed: ["digger plan"]
+      on_pull_request_closed: ["digger unlock"]
+      on_commit_to_default: ["digger unlock"]
