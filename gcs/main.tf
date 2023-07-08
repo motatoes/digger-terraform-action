@@ -13,7 +13,7 @@ data "google_kms_crypto_key" "crypto_key" {
 
 module "cloud_bucket" {
   for_each           = { for x in var.list_of_cloud_buckets : x.bucket_name => x }
-  source             = "./modules/simple_bucket"
+  source             = "../modules/simple_bucket"
   name               = each.value.bucket_name
   project_id         = each.value.project_id
   labels             = each.value.labels
