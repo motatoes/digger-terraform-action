@@ -13,10 +13,10 @@ variable "list_of_cloud_buckets" {
       key_location  = string
     })
     force_destroy = bool
-    # iam_members = list(object({
-    #   role   = string
-    #   member = string
-    # }))
+    iam_members = list(object({
+      role   = string
+      member = string
+    }))
     lifecycle_rules = list(object({
       action    = any
       condition = any

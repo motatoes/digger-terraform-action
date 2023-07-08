@@ -37,8 +37,8 @@ jobs:
       - name: 'Use gcloud CLI'
         run: 'gcloud info'
 
-      - name: digger
-        uses: diggerhq/digger@main
+      - name: run-digger
+        uses: diggerhq/digger@v0.1.26
         env:
           LOCK_PROVIDER: gcp
           GITHUB_CONTEXT: ${{ toJson(github) }}
