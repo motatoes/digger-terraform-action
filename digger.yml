@@ -8,13 +8,12 @@ projects:
   workflow: gcs
 workflows:
   gcs:
-    env_vars:
-      state:
-      - name: TF_LOG
-        value: trace
-      commands:
-      - name: TF_LOG
-        value: trace
+    init:
+      steps:
+      - init:
+        extra_args: ["backend-config=../backend.hcl"]
+      - run: "terraform init"
+      - init
     plan:
       steps:
       - init:
